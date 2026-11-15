@@ -6,8 +6,37 @@
  * pour éviter tout décalage entre le serveur et le navigateur).
  */
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import { PRODUCTS, type Product } from "./products";
+
+/**
+ * Relit un panier enregistré dans le navigateur en ne gardant que des lignes valides :
+ * produit encore au catalogue, taille proposée pour ce produit, quantité entière de 1 à 99.
+ * (Un ancien panier, ou un panier modifié à la main, ne peut ni casser le site ni fausser le message.)
+ */
+function restoreCart(raw: string | null): CartLine[] {
+  if (!raw) return [];
+  let data: unknown;
+  try {
+    data = JSON.parse(raw);
+  } catch {
+    return [];
+  }
+  if (!Array.isArray(data)) return [];
+  const out: CartLine[] = [];
+  for (const x of data.slice(0, 50)) {
+    if (!x || typeof x !== "object") continue;
+    const { id, size, qty } = x as Record<string, unknown>;
+    const p = PRODUCTS.find((pp) => pp.id === id);
+    if (!p || typeof size !== "string" || !p.sizes.includes(size)) continue;
+    const q = typeof qty === "number" && Number.isFinite(qty) ? Math.min(99, Math.max(0, Math.floor(qty))) : 0;
+    if (q < 1) continue;
+    const same = out.find((l) => l.id === p.id && l.size === size);
+    if (same) same.qty = Math.min(99, same.qty + q);
+    else out.push({ id: p.id, size, qty: q });
+  }
+  return out;
+}
 
 export interface CartLine {
   id: string;
@@ -39,17 +68,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [sheet, setSheet] = useState<Product | null>(null);
   const [toast, setToast] = useState<string | null>(null);
 
+  const toastTimer = useRef<number | undefined>(undefined);
+
   useEffect(() => {
     try {
-      const raw = localStorage.getItem(KEY);
-      if (raw) {
-        const parsed = JSON.parse(raw) as CartLine[];
-        setLines(parsed.filter((l) => PRODUCTS.some((p) => p.id === l.id) && l.qty > 0));
-      }
+      setLines(restoreCart(localStorage.getItem(KEY)));
     } catch {
       /* stockage indisponible : panier vide */
     }
     setLoaded(true);
+    return () => window.clearTimeout(toastTimer.current);
   }, []);
 
   useEffect(() => {
@@ -82,7 +110,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     });
     const p = PRODUCTS.find((x) => x.id === id);
     setToast(`${p?.name ?? "Article"} · ${size} — ajouté au panier`);
-    window.setTimeout(() => setToast(null), 2600);
+    // un nouvel ajout relance le délai (le message ne disparaît pas trop tôt)
+    window.clearTimeout(toastTimer.current);
+    toastTimer.current = window.setTimeout(() => setToast(null), 2600);
   }, []);
 
   const setQty = useCallback((id: string, size: string, qty: number) => {

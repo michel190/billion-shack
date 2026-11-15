@@ -1,11 +1,12 @@
 "use client";
 
 /* eslint-disable @next/next/no-img-element */
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { easing } from "@/lib/motion";
 import { STORE } from "@/lib/store";
 import { useCart } from "@/lib/cart";
+import { useDialog } from "@/lib/dialog";
 
 const NAV = [
   { label: "Collection", href: "#collection" },
@@ -26,6 +27,9 @@ export default function Masthead() {
   const [open, setOpen] = useState(false);
   const { count, setCartOpen } = useCart();
   const reduced = useReducedMotion();
+  const menuRef = useRef<HTMLDivElement>(null);
+  // menu mobile : Échap le ferme, le clavier reste dedans, l'en-tête reste utilisable
+  useDialog(open, menuRef, () => setOpen(false), ["header"]);
 
   useEffect(() => {
     let raf = 0;
@@ -70,6 +74,9 @@ export default function Masthead() {
 
   return (
     <>
+      <a href="#contenu" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:bg-ink focus:px-5 focus:py-3 focus:text-[12px] focus:font-semibold focus:text-bone">
+        Aller au contenu
+      </a>
       <header className="fixed inset-x-0 top-0 z-50">
         <div className="bg-night2 text-bone">
           <div className="mx-auto flex h-8 max-w-[90rem] items-center justify-center gap-6 px-6 text-[10px] font-semibold uppercase tracking-[0.22em] md:justify-between md:px-12 lg:px-20">
@@ -96,7 +103,7 @@ export default function Masthead() {
                 </a>
               ))}
             </nav>
-            <button onClick={() => setOpen((v) => !v)} className="flex items-center gap-3 justify-self-start lg:hidden" aria-label={open ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={open}>
+            <button onClick={() => setOpen((v) => !v)} className="hit flex items-center gap-3 justify-self-start lg:hidden" aria-label={open ? "Fermer le menu" : "Ouvrir le menu"} aria-expanded={open}>
               <span className="relative flex h-3 w-6 flex-col justify-between">
                 <motion.span animate={{ rotate: open ? 45 : 0, y: open ? 5.5 : 0 }} transition={{ duration: 0.4, ease: easing.outExpo }} className={`h-px w-full transition-colors duration-500 ${bar}`} />
                 <motion.span animate={{ rotate: open ? -45 : 0, y: open ? -5.5 : 0 }} transition={{ duration: 0.4, ease: easing.outExpo }} className={`h-px w-full transition-colors duration-500 ${bar}`} />
@@ -116,9 +123,9 @@ export default function Masthead() {
               </span>
             </a>
 
-            <button onClick={() => setCartOpen(true)} className="group relative inline-flex items-center gap-2 justify-self-end label" aria-label={`Ouvrir le panier (${count} article${count > 1 ? "s" : ""})`}>
+            <button onClick={() => setCartOpen(true)} className="hit group relative inline-flex items-center gap-2 justify-self-end label" aria-label={`Ouvrir le panier (${count} article${count > 1 ? "s" : ""})`}>
               <span>Panier</span>
-              <span className={`inline-flex h-6 min-w-6 items-center justify-center rounded-full px-1.5 text-[11px] tracking-normal tabular transition-colors ${count > 0 ? "bg-accent text-bone" : dark ? "bg-white/10" : "bg-ink/10"}`}>{count}</span>
+              <span className={`inline-flex h-6 min-w-6 items-center justify-center px-1.5 text-[11px] tracking-normal tabular transition-colors ${count > 0 ? "bg-accent text-ink" : dark ? "bg-white/10" : "bg-ink/10"}`}>{count}</span>
             </button>
           </div>
           {/* fond de l'en-tête : transparent pendant le héros, teinté ensuite */}
@@ -127,14 +134,14 @@ export default function Masthead() {
             initial={false}
             animate={{ opacity: !inHero || open ? 1 : 0 }}
             transition={{ duration: 0.5, ease: easing.outExpo }}
-            className={`absolute inset-0 -z-10 border-b backdrop-blur-md transition-colors duration-500 ${dark ? "border-white/10 bg-night/85" : "border-ink/10 bg-fog/85"}`}
+            className={`absolute inset-0 -z-10 border-b-2 transition-colors duration-500 ${dark ? "border-bone/30 bg-night" : "border-ink bg-bone"}`}
           />
         </div>
       </header>
 
       <AnimatePresence>
         {open && (
-          <motion.div initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: easing.outExpo }} className="fixed inset-0 z-[45] bg-night text-bone lg:hidden">
+          <motion.div ref={menuRef} role="dialog" aria-modal="true" aria-label="Menu" initial={{ opacity: reduced ? 1 : 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.4, ease: easing.outExpo }} className="fixed inset-0 z-[45] bg-night text-bone lg:hidden">
             <div className="flex h-full flex-col px-6 pb-10 pt-36">
               <nav className="flex flex-1 flex-col justify-center" aria-label="Menu mobile">
                 <ul className="flex flex-col gap-2">

@@ -40,7 +40,7 @@ function Dropdown<T extends string>({ label, value, options, onChange, align = "
   const active = value !== options[0].v;
   return (
     <div ref={ref} className="relative">
-      <button onClick={() => setOpen((v) => !v)} aria-expanded={open} className="flex items-center gap-1.5 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.12em] text-ink">
+      <button onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-haspopup="true" className="hit flex items-center gap-1.5 whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.12em] text-ink">
         {label}
         {active && <span className="text-mut normal-case tracking-normal">· {current?.l}</span>}
         <svg width="8" height="8" viewBox="0 0 8 8" aria-hidden className={`transition-transform duration-300 ${open ? "rotate-180" : ""}`}>
@@ -55,7 +55,7 @@ function Dropdown<T extends string>({ label, value, options, onChange, align = "
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }}
             transition={{ duration: 0.25, ease: easing.outExpo }}
-            className="min-w-[11rem] border border-ink/10 bg-bone py-1.5 shadow-[0_24px_50px_-24px_rgba(15,13,26,.35)]"
+            className="min-w-[11rem] border-2 border-ink bg-bone py-1.5 print-shadow"
           >
             {options.map((o) => (
               <li key={o.v}>
@@ -64,10 +64,11 @@ function Dropdown<T extends string>({ label, value, options, onChange, align = "
                     onChange(o.v);
                     setOpen(false);
                   }}
-                  className={`flex w-full items-center justify-between gap-4 px-4 py-2 text-left text-[12px] transition-colors hover:bg-ink/5 ${o.v === value ? "font-semibold text-ink" : "text-mut"}`}
+                  aria-pressed={o.v === value}
+                  className={`flex w-full items-center justify-between gap-4 px-4 py-3 text-left text-[12px] transition-colors hover:bg-ink/5 ${o.v === value ? "font-semibold text-ink" : "text-mut"}`}
                 >
                   {o.l}
-                  {o.v === value && <span className="h-1.5 w-1.5 rounded-full bg-accent" />}
+                  {o.v === value && <span className="h-2 w-2 bg-accent" />}
                 </button>
               </li>
             ))}
@@ -95,7 +96,7 @@ function Card({ p, i }: { p: Product; i: number }) {
       viewport={{ once: true, margin: "-6% 0px" }}
       transition={{ duration: 0.9, delay: (i % 3) * 0.08, ease: easing.outExpo }}
     >
-      <button onClick={() => openSheet(p)} aria-label={`Voir ${p.name}`} className="group relative block w-full overflow-hidden bg-tile" style={{ aspectRatio: "4 / 5" }}>
+      <button onClick={() => openSheet(p)} aria-label={`Voir ${p.name}`} className="group relative block w-full overflow-hidden border-[6px] border-white bg-tile shadow-[0_1px_0_#111]" style={{ aspectRatio: "4 / 5" }}>
         {(p.badge || p.exemple) && (
           <span className="absolute left-3 top-3 z-10 bg-ink px-2 py-1 text-[9px] font-semibold uppercase tracking-[0.16em] text-bone">{p.badge ?? "Exemple"}</span>
         )}
@@ -106,7 +107,7 @@ function Card({ p, i }: { p: Product; i: number }) {
               alt={p.name}
               loading="lazy"
               decoding="async"
-              className={`absolute inset-0 m-auto h-[70%] w-[80%] object-contain drop-shadow-[0_24px_28px_rgba(15,13,26,.22)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.045] ${p.imageBack ? "group-hover:opacity-0" : ""}`}
+              className={`absolute inset-0 m-auto h-[70%] w-[80%] object-contain drop-shadow-[0_14px_14px_rgba(17,17,17,.18)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.045] ${p.imageBack ? "group-hover:opacity-0" : ""}`}
             />
             {p.imageBack && (
               <img
@@ -114,7 +115,7 @@ function Card({ p, i }: { p: Product; i: number }) {
                 alt={`${p.name} — dos`}
                 loading="lazy"
                 decoding="async"
-                className="absolute inset-0 m-auto h-[70%] w-[80%] scale-[1.02] object-contain opacity-0 drop-shadow-[0_24px_28px_rgba(15,13,26,.22)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.045] group-hover:opacity-100"
+                className="absolute inset-0 m-auto h-[70%] w-[80%] scale-[1.02] object-contain opacity-0 drop-shadow-[0_14px_14px_rgba(17,17,17,.18)] transition-[transform,opacity] duration-700 ease-[cubic-bezier(.16,1,.3,1)] group-hover:scale-[1.045] group-hover:opacity-100"
               />
             )}
           </>
@@ -136,7 +137,7 @@ function Card({ p, i }: { p: Product; i: number }) {
             key={s}
             onClick={() => quick(s)}
             aria-label={`Ajouter ${p.name}, taille ${s}, au panier`}
-            className={`h-8 min-w-[2.35rem] border px-2 text-[11px] font-semibold transition-colors duration-300 md:min-w-[2.75rem] ${picked === s ? "border-ink bg-ink text-bone" : "border-ink/15 text-ink hover:border-ink"}`}
+            className={`h-10 min-w-10 border px-2 text-[11px] font-semibold transition-colors duration-300 md:min-w-[2.75rem] ${picked === s ? "border-ink bg-ink text-bone" : "border-ink/15 text-ink hover:border-ink"}`}
           >
             {picked === s ? "✓" : s}
           </button>
@@ -180,7 +181,7 @@ export default function Collection() {
   return (
     <section id="collection" data-tone="light" className="bg-bone pb-16 md:pb-24">
       {/* barre de filtres (reste en haut pendant qu'on parcourt les articles) */}
-      <div className="sticky top-[6.1rem] z-30 border-y border-ink/10 bg-bone/90 backdrop-blur-md md:top-[7.1rem]">
+      <div className="sticky top-[6.1rem] z-30 border-y-2 border-ink bg-bone md:top-[7.1rem]">
         <div className="mx-auto flex max-w-[90rem] flex-wrap items-center gap-x-6 gap-y-3 px-5 py-3.5 md:flex-nowrap md:justify-between md:px-12 lg:px-20">
           <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-ink">
             {STORE.drop} <span className="text-mut">· {list.length} article{list.length > 1 ? "s" : ""}</span>
@@ -191,10 +192,10 @@ export default function Collection() {
             <Dropdown align="right" label="Trier" value={sort} onChange={setSort} options={SORTS.map((s) => ({ v: s.v, l: s.l }))} />
           </div>
           <div className="order-2 ml-auto flex items-center gap-3 text-ink md:order-3 md:ml-0">
-            <button onClick={() => setDense(false)} aria-pressed={!dense} aria-label="Grandes vignettes" className={`transition-opacity ${dense ? "opacity-30 hover:opacity-70" : "opacity-100"}`}>
+            <button onClick={() => setDense(false)} aria-pressed={!dense} aria-label="Grandes vignettes" className={`hit transition-opacity ${dense ? "opacity-30 hover:opacity-70" : "opacity-100"}`}>
               <ViewIcon cols={1} />
             </button>
-            <button onClick={() => setDense(true)} aria-pressed={dense} aria-label="Petites vignettes" className={`transition-opacity ${dense ? "opacity-100" : "opacity-30 hover:opacity-70"}`}>
+            <button onClick={() => setDense(true)} aria-pressed={dense} aria-label="Petites vignettes" className={`hit transition-opacity ${dense ? "opacity-100" : "opacity-30 hover:opacity-70"}`}>
               <ViewIcon cols={2} />
             </button>
           </div>
@@ -204,7 +205,18 @@ export default function Collection() {
       {/* articles */}
       <div className="mx-auto max-w-[90rem] px-5 pt-10 md:px-12 md:pt-14 lg:px-20">
         {list.length === 0 ? (
-          <p className="py-24 text-center text-[13px] text-mut">Aucun article pour ce choix.</p>
+          <div className="py-24 text-center">
+            <p className="text-[13px] text-mut">Aucun article pour ce choix.</p>
+            <button
+              onClick={() => {
+                setCat("tout");
+                setSize("toutes");
+              }}
+              className="mt-5 border-2 border-ink px-5 py-3 text-[12px] font-bold uppercase tracking-[0.14em] transition-colors hover:bg-accent"
+            >
+              Voir tous les articles
+            </button>
+          </div>
         ) : (
           <div className={`grid gap-x-4 gap-y-12 md:gap-x-8 md:gap-y-16 ${dense ? "grid-cols-2 md:grid-cols-3" : "grid-cols-1 md:grid-cols-2"}`}>
             {list.map((p, i) => (

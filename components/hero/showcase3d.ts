@@ -1,7 +1,7 @@
 /**
  * Le sweat 3D (avec les motifs de la marque) qui tourne lentement sur lui-même
  * (section « Plus qu'une boutique, un état d'esprit »).
- * Éclairage chaud façon film : lumière principale douce, contre-jours magenta et orangé.
+ * Éclairage chaud façon film : lumière principale douce, contre-jours orange vif et orangé.
  */
 import * as THREE from "three";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
@@ -51,9 +51,9 @@ export class Showcase {
 
     const key = new THREE.DirectionalLight("#fff1e6", 2.3);
     key.position.set(-3, 3, 5);
-    const fill = new THREE.DirectionalLight("#ffd6e6", 0.5);
+    const fill = new THREE.DirectionalLight("#ffe6d6", 0.5);
     fill.position.set(3, 0, 4);
-    const rimL = new THREE.DirectionalLight("#e3297d", 4.2);
+    const rimL = new THREE.DirectionalLight("#ff5b14", 4.2);
     rimL.position.set(-4, 2, -4);
     const rimR = new THREE.DirectionalLight("#ff9a5a", 3.2);
     rimR.position.set(4, 2, -4);

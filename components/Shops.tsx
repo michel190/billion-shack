@@ -8,10 +8,6 @@ import MaskReveal from "./MaskReveal";
 /** Les deux boutiques (Lomé, Abidjan) avec un lien d'itinéraire. */
 export default function Shops() {
   const reduced = !!useReducedMotion();
-  const glows = [
-    "radial-gradient(ellipse 70% 60% at 0% 0%, rgba(85,138,252,.28), transparent 65%), radial-gradient(ellipse 60% 50% at 100% 100%, rgba(227,41,125,.22), transparent 70%)",
-    "radial-gradient(ellipse 70% 60% at 100% 0%, rgba(227,41,125,.28), transparent 65%), radial-gradient(ellipse 60% 50% at 0% 100%, rgba(255,165,22,.16), transparent 70%)",
-  ];
 
   return (
     <section id="boutiques" data-tone="light" className="bg-bone px-6 py-20 md:px-12 md:py-32 lg:px-20">
@@ -29,9 +25,9 @@ export default function Shops() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.1, delay: 0.4, ease: easing.outExpo }}
-              className="serif mt-3 text-[clamp(1.8rem,3.4vw,3rem)] text-accent"
+              className="serif mt-4 text-[clamp(1.6rem,3vw,2.6rem)]"
             >
-              passe nous voir.
+              <span className="strip strip-orange not-italic">passe nous voir.</span>
             </motion.p>
           </div>
         </div>
@@ -44,11 +40,10 @@ export default function Shops() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
               transition={{ duration: 1.1, delay: i * 0.12, ease: easing.outExpo }}
-              className="noise noise-dark relative flex min-h-[22rem] flex-col justify-between overflow-hidden rounded-[1.5rem] bg-night p-7 text-bone md:min-h-[28rem] md:p-10"
+              className="noise noise-dark relative flex min-h-[22rem] flex-col justify-between overflow-hidden bg-night p-7 text-bone md:min-h-[28rem] md:p-10"
             >
-              <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: glows[i % 2] }} />
               <div className="relative flex items-start justify-between gap-4">
-                <span className="grot text-sm text-mutd tabular">{String(i + 1).padStart(2, "0")}</span>
+                <span className="sticker h-12 w-12 -rotate-6 text-xl tabular">{String(i + 1).padStart(2, "0")}</span>
                 <span className="label text-mutd">{s.country}</span>
               </div>
               <div className="relative">
@@ -59,10 +54,10 @@ export default function Shops() {
                   href={s.maps}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group mt-7 inline-flex items-center gap-3 rounded-full border border-white/20 py-2.5 pl-5 pr-2.5 transition-colors duration-500 hover:border-accent"
+                  className="group mt-7 inline-flex items-center gap-3 border-2 border-bone py-2 pl-5 pr-2 transition-colors duration-300 hover:border-accent"
                 >
                   <span className="label">Itinéraire</span>
-                  <span className="flex h-8 w-8 items-center justify-center rounded-full bg-bone text-ink transition-colors duration-500 group-hover:bg-accent group-hover:text-bone">
+                  <span className="flex h-8 w-8 items-center justify-center bg-bone text-ink transition-colors duration-300 group-hover:bg-accent">
                     <svg width="13" height="13" viewBox="0 0 14 14" fill="none" aria-hidden>
                       <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.4" />
                     </svg>

@@ -13,7 +13,7 @@ function Social({ href, label, note }: { href: string; label: string; note?: str
         <span className="grot block text-xl md:text-2xl">{label}</span>
         {note && <span className="mt-1 block text-[12px] uppercase tracking-[0.16em] text-accent-light">{note}</span>}
       </span>
-      <span className="flex h-10 w-10 flex-none items-center justify-center rounded-full border border-white/20 transition-colors duration-500 group-hover:border-accent group-hover:bg-accent">
+      <span className="flex h-10 w-10 flex-none items-center justify-center border-2 border-bone/40 transition-colors duration-500 group-hover:border-accent group-hover:bg-accent">
         <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
           <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.4" />
         </svg>
@@ -48,7 +48,7 @@ function Film() {
       transition={{ duration: 1.2, ease: easing.outExpo }}
       className="mx-auto w-full max-w-[26rem]"
     >
-      <div className="relative overflow-hidden rounded-[1.5rem] border border-white/10 bg-[#07051a] shadow-[0_40px_80px_-40px_rgba(227,41,125,.45)]" style={{ aspectRatio: "720 / 1000" }}>
+      <div className="taped relative border-[8px] border-bone bg-ink shadow-[6px_6px_0_#FF5B14]" style={{ aspectRatio: "720 / 1000" }}>
         <video
           ref={ref}
           className="absolute inset-0 h-full w-full object-cover"
@@ -83,13 +83,12 @@ export default function Brand() {
 
   return (
     <section id="marque" ref={ref} data-tone="dark" className="noise noise-dark relative overflow-hidden bg-night py-20 text-bone md:py-32">
-      <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse 50% 45% at 15% 80%, rgba(227,41,125,.16), transparent 70%)" }} />
 
       <div aria-hidden className="pointer-events-none relative select-none">
-        <motion.p style={{ x: reduced ? 0 : x1 }} className="cond whitespace-nowrap text-[clamp(4rem,12vw,11rem)] text-[#1f1940]">
+        <motion.p style={{ x: reduced ? 0 : x1 }} className="cond whitespace-nowrap text-[clamp(4rem,12vw,11rem)] text-[#262522]">
           {band.repeat(4)}
         </motion.p>
-        <motion.p style={{ x: reduced ? 0 : x2 }} className="cond -mt-2 whitespace-nowrap text-[clamp(4rem,12vw,11rem)] text-[#18132f]">
+        <motion.p style={{ x: reduced ? 0 : x2 }} className="cond -mt-2 whitespace-nowrap text-[clamp(4rem,12vw,11rem)] text-accent/80">
           {band.repeat(4)}
         </motion.p>
       </div>
@@ -111,9 +110,9 @@ export default function Brand() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 1.1, delay: 0.45, ease: easing.outExpo }}
-            className="serif mt-3 text-[clamp(1.9rem,3.6vw,3.2rem)] text-accent"
+            className="serif mt-4 text-[clamp(1.6rem,3vw,2.6rem)]"
           >
-            sur Snap et TikTok.
+            <span className="strip strip-orange not-italic">sur Snap et TikTok.</span>
           </motion.p>
           <div className="mt-8 border-t border-white/12">
             <Social href={STORE.snapchatUrl} label={`Snapchat · ${STORE.snapchat}`} note="Réponse la plus rapide" />

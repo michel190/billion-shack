@@ -20,7 +20,7 @@ export default function Footer() {
           <div className="md:col-span-5">
             <img src="/marque/logo-slogan.png" alt={`${STORE.name} — ${STORE.tagline}`} width={573} height={506} className="h-auto w-[13.5rem] md:w-[16rem]" loading="lazy" />
             <p className="grot mt-10 text-[clamp(1.6rem,3vw,2.4rem)] leading-[1.08]">Une question, une taille, une dispo ?</p>
-            <a href={whatsappUrl(`Bonjour ${STORE.name} !`)} target="_blank" rel="noopener noreferrer" className="group mt-7 inline-flex items-center gap-3 rounded-full bg-bone px-6 py-3.5 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:bg-accent hover:text-bone">
+            <a href={whatsappUrl(`Bonjour ${STORE.name} !`)} target="_blank" rel="noopener noreferrer" className="group mt-7 inline-flex items-center gap-3 bg-bone px-6 py-3.5 text-[12px] font-bold uppercase tracking-[0.14em] text-ink shadow-[4px_4px_0_#FF5B14] transition-colors duration-300 hover:bg-accent hover:text-ink">
               Écrire sur WhatsApp
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition-transform duration-500 group-hover:translate-x-1" aria-hidden>
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.4" />
@@ -33,7 +33,7 @@ export default function Footer() {
               <ul className="mt-4 space-y-4 text-sm text-bone/85">
                 {STORE.shops.map((s) => (
                   <li key={s.city}>
-                    <a href={s.maps} target="_blank" rel="noopener noreferrer" className="hover:text-accent-light">
+                    <a href={s.maps} target="_blank" rel="noopener noreferrer" className="inline-block py-1.5 hover:text-accent-light">
                       <span className="block font-semibold text-bone">{s.city} · {s.country}</span>
                       <span className="block">{s.area}</span>
                       {s.detail && <span className="block text-mutd">{s.detail}</span>}
@@ -46,18 +46,18 @@ export default function Footer() {
               <p className="label text-mutd">Contact</p>
               <ul className="mt-4 space-y-2 text-sm">
                 <li>
-                  <a href={whatsappUrl(`Bonjour ${STORE.name} !`)} target="_blank" rel="noopener noreferrer" className="hover:text-accent-light">
+                  <a href={whatsappUrl(`Bonjour ${STORE.name} !`)} target="_blank" rel="noopener noreferrer" className="inline-block py-1.5 hover:text-accent-light">
                     WhatsApp {STORE.whatsappDisplay}
                   </a>
                 </li>
                 <li>
-                  <a href={STORE.snapchatUrl} target="_blank" rel="noopener noreferrer" className="hover:text-accent-light">
+                  <a href={STORE.snapchatUrl} target="_blank" rel="noopener noreferrer" className="inline-block py-1.5 hover:text-accent-light">
                     Snap {STORE.snapchat}
                   </a>
                   <span className="block text-[12px] text-mutd">réponse la plus rapide</span>
                 </li>
                 <li>
-                  <a href={STORE.tiktok} target="_blank" rel="noopener noreferrer" className="hover:text-accent-light">
+                  <a href={STORE.tiktok} target="_blank" rel="noopener noreferrer" className="inline-block py-1.5 hover:text-accent-light">
                     TikTok {STORE.tiktokHandle}
                   </a>
                 </li>
@@ -66,11 +66,11 @@ export default function Footer() {
             <div>
               <p className="label text-mutd">Le site</p>
               <ul className="mt-4 space-y-2 text-sm">
-                <li><a href="#collection" className="hover:text-accent-light">Collection</a></li>
-                <li><a href="#esprit" className="hover:text-accent-light">L&apos;esprit</a></li>
-                <li><a href="#commander" className="hover:text-accent-light">Commander</a></li>
-                <li><a href="#boutiques" className="hover:text-accent-light">Boutiques</a></li>
-                <li><a href="#questions" className="hover:text-accent-light">Questions</a></li>
+                <li><a href="#collection" className="inline-block py-1.5 hover:text-accent-light">Collection</a></li>
+                <li><a href="#esprit" className="inline-block py-1.5 hover:text-accent-light">L&apos;esprit</a></li>
+                <li><a href="#commander" className="inline-block py-1.5 hover:text-accent-light">Commander</a></li>
+                <li><a href="#boutiques" className="inline-block py-1.5 hover:text-accent-light">Boutiques</a></li>
+                <li><a href="#questions" className="inline-block py-1.5 hover:text-accent-light">Questions</a></li>
               </ul>
             </div>
           </div>
@@ -80,7 +80,7 @@ export default function Footer() {
           <span>{STORE.delivery} · Prix en {STORE.currency}</span>
         </div>
       </div>
-      <motion.div aria-hidden style={{ y: reduced ? 0 : y }} className="giant pointer-events-none mt-8 flex select-none flex-col items-center text-[#1d1840]">
+      <motion.div aria-hidden style={{ y: reduced ? 0 : y }} className="giant pointer-events-none mt-8 flex select-none flex-col items-center text-[#262522]">
         <span style={{ fontSize: "min(19.4vw, 21rem)", lineHeight: 0.84 }}>{STORE.name.split(" ")[0]}</span>
         <span style={{ fontSize: "min(19.4vw, 21rem)", lineHeight: 0.84 }}>{STORE.name.split(" ").slice(1).join(" ")}</span>
       </motion.div>

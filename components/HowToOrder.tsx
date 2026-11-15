@@ -36,9 +36,9 @@ export default function HowToOrder() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 1.1, delay: 0.5, ease: easing.outExpo }}
-              className="serif mt-3 text-[clamp(1.8rem,3.4vw,3rem)] text-accent"
+              className="serif mt-4 text-[clamp(1.6rem,3vw,2.6rem)]"
             >
-              depuis ton téléphone.
+              <span className="strip strip-orange not-italic">depuis ton téléphone.</span>
             </motion.p>
           </div>
         </div>
@@ -51,9 +51,8 @@ export default function HowToOrder() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-10% 0px" }}
               transition={{ duration: 1.1, delay: i * 0.12, ease: easing.outExpo }}
-              className={`relative overflow-hidden rounded-2xl p-7 md:p-9 ${s.spotlight ? "noise noise-dark bg-night text-bone" : "border border-ink/10 bg-bone/60"}`}
+              className={`relative overflow-hidden border-2 border-ink p-7 md:p-9 ${s.spotlight ? "noise noise-dark bg-night text-bone" : "bg-bone print-shadow"}`}
             >
-              {s.spotlight && <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 60% at 100% 0%, rgba(227,41,125,.3), transparent 65%)" }} />}
               <motion.p style={{ y: reduced ? 0 : numY }} className={`giant relative text-[clamp(4.5rem,9vw,8rem)] ${s.spotlight ? "text-accent" : "text-ink/90"}`}>
                 {s.n}
               </motion.p>

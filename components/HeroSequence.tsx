@@ -193,13 +193,12 @@ export default function HeroSequence() {
   }, [reduced, sp]);
 
   const pill = bottomDark
-    ? { wrap: "border-white/15 bg-night/55 text-bone shadow-[0_18px_40px_-22px_rgba(0,0,0,.8)]", link: "hover:bg-white/10", cta: "bg-bone text-ink hover:bg-accent hover:text-bone" }
-    : { wrap: "border-ink/10 bg-bone/90 text-ink shadow-[0_18px_40px_-22px_rgba(15,13,26,.45)]", link: "hover:bg-ink/5", cta: "bg-ink text-bone hover:bg-accent" };
+    ? { wrap: "border-bone bg-night text-bone", link: "hover:bg-white/10", cta: "bg-accent text-ink hover:bg-bone" }
+    : { wrap: "border-ink bg-bone text-ink print-shadow", link: "hover:bg-ink/5", cta: "bg-ink text-bone hover:bg-accent hover:text-ink" };
 
   return (
     <section id="top" ref={sectionRef} data-tone="light" data-hero="1" className={`relative ${reduced ? "h-[100svh]" : "h-[520vh] supports-[height:100svh]:h-[520svh]"}`}>
       <div ref={stageRef} className="noise sticky top-0 isolate h-screen overflow-hidden bg-fog supports-[height:100svh]:h-[100svh]">
-        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10" style={{ background: "radial-gradient(ellipse 60% 50% at 50% 55%, rgba(255,255,255,.7), transparent 70%)" }} />
 
         {/* 1 · nom géant */}
         <div aria-hidden className="pointer-events-none absolute inset-x-0 top-[15svh] z-0 flex select-none flex-col items-center text-ink md:top-[50%] md:-translate-y-1/2">
@@ -223,8 +222,9 @@ export default function HeroSequence() {
         />
         <motion.div
           aria-hidden
-          className="pointer-events-none absolute inset-0 z-[15]"
-          style={{ opacity: reduced ? 0 : glow, background: "radial-gradient(ellipse 34% 42% at 50% 52%, rgba(227,41,125,.26), transparent 70%), radial-gradient(ellipse 50% 40% at 30% 30%, rgba(85,138,252,.16), transparent 70%)" }}
+          // trame de points orange derrière le sweat (demi-teinte de photocopie), visible dans la partie noire
+          className="halftone pointer-events-none absolute inset-0 z-[15] text-accent"
+          style={{ opacity: reduced ? 0 : glow, WebkitMaskImage: "radial-gradient(ellipse 38% 44% at 50% 54%, #000 30%, transparent 72%)", maskImage: "radial-gradient(ellipse 38% 44% at 50% 54%, #000 30%, transparent 72%)" }}
         />
 
         {/* 3 · le sweat : en 3D… */}
@@ -297,18 +297,18 @@ export default function HeroSequence() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.1, delay: 1.0, ease: easing.outExpo }}
               aria-label="Raccourcis"
-              className={`mx-auto flex max-w-full items-center gap-1 overflow-x-auto rounded-full border p-1.5 backdrop-blur transition-colors duration-500 scrollbar-none ${pill.wrap}`}
+              className={`mx-auto flex max-w-full items-center gap-1 overflow-x-auto border-2 p-1 transition-colors duration-500 scrollbar-none ${pill.wrap}`}
             >
               {[
                 ["Collection", "#collection"],
                 ["Boutiques", "#boutiques"],
                 ["Livraison", "#commander"],
               ].map(([l, h]) => (
-                <a key={h} href={h} className={`${l === "Boutiques" ? "hidden sm:inline-block" : ""} whitespace-nowrap rounded-full px-3 py-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] transition-colors duration-300 sm:px-4 sm:text-[11px] sm:tracking-[0.16em] ${pill.link}`}>
+                <a key={h} href={h} className={`${l === "Boutiques" ? "hidden sm:inline-block" : ""} whitespace-nowrap px-3 py-2.5 text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-300 sm:px-4 sm:text-[11px] sm:tracking-[0.16em] ${pill.link}`}>
                   {l}
                 </a>
               ))}
-              <a href="#collection" className={`whitespace-nowrap rounded-full px-4 py-2.5 text-[10px] font-semibold uppercase tracking-[0.12em] transition-colors duration-300 sm:px-5 sm:text-[11px] sm:tracking-[0.16em] ${pill.cta}`}>
+              <a href="#collection" className={`whitespace-nowrap px-4 py-2.5 text-[11px] font-bold uppercase tracking-[0.12em] transition-colors duration-300 sm:px-5 sm:text-[11px] sm:tracking-[0.16em] ${pill.cta}`}>
                 Commander
               </a>
             </motion.nav>

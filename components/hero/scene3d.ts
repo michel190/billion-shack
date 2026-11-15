@@ -100,7 +100,7 @@ void main(){
   vec4 mv = viewMatrix * vec4(p, 1.0);
   gl_Position = projectionMatrix * mv;
   gl_PointSize = uSize * (0.55 + aRand.w * 0.9 + 0.5 * fly) * uPx / -mv.z;
-  vC = aRand.y < 0.05 ? vec3(1.0, 0.42, 0.72) : (aRand.y > 0.965 ? vec3(0.55, 0.72, 1.0) : vec3(1.0));
+  vC = aRand.y < 0.05 ? vec3(1.0, 0.36, 0.08) : (aRand.y > 0.965 ? vec3(1.0, 0.82, 0.62) : vec3(1.0));
 }`;
 
 const FRAG = /* glsl */ `
@@ -141,8 +141,8 @@ export class HeroScene {
   private hoodie!: Hoodie; // construit dans init(), une fois les motifs chargés
   private hoodieRoot = new THREE.Group();
   private scan: ScanUniforms = { uScan: { value: -100 }, uGlow: { value: 0 } };
-  private rimL = new THREE.DirectionalLight("#558afc", 0);
-  private rimR = new THREE.DirectionalLight("#e3297d", 0);
+  private rimL = new THREE.DirectionalLight("#ff9a5a", 0);
+  private rimR = new THREE.DirectionalLight("#ff5b14", 0);
   private textGroup = new THREE.Group();
   private chromeMat: THREE.MeshPhysicalMaterial | THREE.MeshStandardMaterial;
   private wipePlane = new THREE.Plane(new THREE.Vector3(-1, 0, 0), -100);

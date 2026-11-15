@@ -14,6 +14,7 @@ import Footer from "@/components/Footer";
 import ProductSheet from "@/components/ProductSheet";
 import CartDrawer from "@/components/CartDrawer";
 import Overlays from "@/components/Overlays";
+import { STORE } from "@/lib/store";
 
 export default function Home() {
   return (
@@ -21,7 +22,9 @@ export default function Home() {
     <MotionConfig reducedMotion="user">
     <CartProvider>
       <Masthead />
-      <main>
+      <main id="contenu" tabIndex={-1}>
+        {/* titre principal de la page (lu par les lecteurs d'écran et Google) ; le grand nom visible est en 3D */}
+        <h1 className="sr-only">{STORE.name} — streetwear et casual à Lomé et Abidjan, commande sur WhatsApp</h1>
         <HeroSequence />
         <EtatDesprit />
         <Collection />

@@ -128,9 +128,10 @@ Mets le projet (sans `node_modules`, `.next` ni `out`) dans un dépôt GitHub, p
 
 ## Style
 
-Couleurs du logo : bleu nuit `#0C081F` + **une seule couleur d'accent**, le magenta du sac `#E3297D`
-(modifiable dans `tailwind.config.js`). Le dégradé du sac (cyan → bleu → violet → magenta → orange)
-n'apparaît que sur le fin liseré sous la barre d'annonce et en lueurs très douces.
-Typographies : Archivo (très large / condensée), Instrument Serif en italique (phrases fines) et Inter.
+Style **« fanzine photocopié »** : papier `#F3F0E8`, encre `#111111` et **une seule couleur vive**, l'orange `#FF5B14`
+(modifiables dans `tailwind.config.js`). Pas de dégradé ni de halo : des aplats, des traits noirs, du grain de photocopieuse,
+des bandeaux de titre, du scotch, des autocollants ronds (classes `strip`, `taped`, `sticker`, `halftone` dans `app/globals.css`).
+Petit texte orange sur papier : utiliser `text-accent-dark` (lisible) ; l'orange vif sert aux aplats et au texte sur fond noir.
+Typographies : Big Shoulders Display (titres) et Courier Prime (texte, façon machine à écrire).
 3D : three.js (licence MIT), chargé seulement quand le héros s'affiche.
 Les polices sont incluses dans le site (aucune dépendance à Google Fonts) et libres d'usage commercial (OFL).

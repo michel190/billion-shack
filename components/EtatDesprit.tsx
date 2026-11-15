@@ -102,13 +102,12 @@ export default function EtatDesprit() {
         <span ref={headZone} aria-hidden className="pointer-events-none absolute inset-x-0 top-[30%] h-[40%]" />
         {/* bloc bleu nuit */}
         <motion.div
-          initial={reduced ? false : { clipPath: "inset(0 0 100% 0 round 1.5rem)" }}
-          whileInView={{ clipPath: "inset(0 0 0% 0 round 1.5rem)" }}
+          initial={reduced ? false : { clipPath: "inset(0 0 100% 0)" }}
+          whileInView={{ clipPath: "inset(0 0 0% 0)" }}
           viewport={{ once: true, margin: "-12% 0px" }}
           transition={{ duration: 1.3, ease: easing.outExpo }}
-          className="noise noise-dark relative flex min-h-[72svh] w-full flex-col justify-between overflow-hidden rounded-[1.5rem] bg-night p-6 text-bone md:min-h-[88svh] md:p-10"
+          className="noise noise-dark relative flex min-h-[72svh] w-full flex-col justify-between overflow-hidden bg-night p-6 text-bone md:min-h-[88svh] md:p-10"
         >
-          <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse 60% 50% at 0% 100%, rgba(227,41,125,.22), transparent 70%)" }} />
           <div className="relative flex items-center justify-between">
             <img src="/marque/texte.png" alt={STORE.name} width={408} height={183} className="h-9 w-auto md:h-11" />
             <span className="label text-mutd">{STORE.cities}</span>
@@ -118,12 +117,12 @@ export default function EtatDesprit() {
             <MaskReveal show={headIn}>Plus qu&apos;une</MaskReveal>
             <MaskReveal show={headIn} delay={0.08}>boutique,</MaskReveal>
             <MaskReveal show={headIn} delay={0.16}>un état</MaskReveal>
-            <MaskReveal show={headIn} delay={0.24}>d&apos;esprit.</MaskReveal>
+            <MaskReveal show={headIn} delay={0.24}><span className="text-accent">d&apos;esprit.</span></MaskReveal>
           </h2>
 
           <div className="relative flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <p className="serif max-w-[18rem] text-[clamp(1.5rem,2.2vw,2rem)] text-bone/90">{STORE.tagline}.</p>
-            <a href="#collection" className="group inline-flex items-center gap-3 self-start rounded-full bg-bone px-5 py-3 text-[11px] font-semibold uppercase tracking-[0.16em] text-ink transition-colors duration-300 hover:bg-accent hover:text-bone md:self-auto">
+            <a href="#collection" className="group inline-flex items-center gap-3 self-start bg-bone px-5 py-3.5 text-[12px] font-bold uppercase tracking-[0.14em] text-ink shadow-[4px_4px_0_#FF5B14] transition-colors duration-300 hover:bg-accent md:self-auto">
               Voir la collection
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none" className="transition-transform duration-500 group-hover:translate-x-1" aria-hidden>
                 <path d="M1 7h12M7 1l6 6-6 6" stroke="currentColor" strokeWidth="1.3" />
@@ -133,34 +132,36 @@ export default function EtatDesprit() {
         </motion.div>
         </div>
 
-        {/* photo façon pellicule */}
+        {/* photo scotchée (le sweat 3D tourne dedans) */}
         <motion.div
           initial={reduced ? false : { opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true, margin: "-12% 0px" }}
           transition={{ duration: 1.4, delay: 0.15, ease: easing.outExpo }}
-          className="relative min-h-[72svh] overflow-hidden rounded-[1.5rem] bg-[#14070f] md:min-h-[88svh]"
+          className="taped relative min-h-[72svh] border-[10px] border-white bg-tile shadow-[0_1px_0_#111,0_18px_30px_-20px_rgba(0,0,0,.45)] md:min-h-[88svh] md:rotate-[0.6deg]"
         >
+          <div className="absolute inset-0 overflow-hidden">
           <motion.div className="absolute inset-0" style={reduced ? undefined : { scale: photoScale, y: photoY }}>
             {STORE.etatImage ? (
               <img src={STORE.etatImage} alt={`${STORE.name} — l'esprit de la boutique`} className="absolute inset-0 h-full w-full object-cover" style={{ filter: "contrast(1.12) saturate(.8) sepia(.16) brightness(.95)" }} loading="lazy" />
             ) : (
-              <div className="absolute inset-0" style={{ background: "radial-gradient(ellipse 70% 62% at 50% 46%, #7a2244 0%, #45122c 50%, #16070f 100%)" }}>
+              <div className="absolute inset-0">
+                <div aria-hidden className="halftone absolute inset-0 text-ink/10" />
                 <Showcase3D />
               </div>
             )}
           </motion.div>
-          {/* effet pellicule : grain, vignettage, voile chaud */}
-          <div aria-hidden className="film-grain pointer-events-none absolute -inset-[60px]" />
-          <div aria-hidden className="pointer-events-none absolute inset-0" style={{ background: "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,.55) 100%)" }} />
-          <div aria-hidden className="pointer-events-none absolute inset-0 mix-blend-screen" style={{ background: "linear-gradient(120deg, rgba(255,150,70,.16), transparent 38%)" }} />
-          <p className="label absolute bottom-5 left-5 text-bone/80 md:bottom-7 md:left-7">{STORE.name} · {STORE.drop}</p>
+          {/* grain de photocopie */}
+          <div aria-hidden className="film-grain pointer-events-none absolute -inset-[60px] opacity-20" />
+          </div>
+          <p className="label absolute bottom-4 left-4 bg-ink px-2 py-1 text-bone md:bottom-6 md:left-6">{STORE.name} · {STORE.drop}</p>
+          <span aria-hidden className="sticker absolute right-4 top-6 h-20 w-20 rotate-12 text-[1.35rem] md:right-6 md:top-8 md:h-24 md:w-24 md:text-[1.6rem]">Drop<br />01</span>
         </motion.div>
       </div>
 
       {/* bandeau qui défile */}
-      <div className="mt-3 overflow-hidden border-y border-ink/10 py-3.5" aria-hidden>
-        <div className="marquee flex w-max whitespace-nowrap text-[11px] font-semibold uppercase tracking-[0.2em] text-ink/80">
+      <div className="mt-3 overflow-hidden border-y-2 border-ink bg-ink py-3 text-bone" aria-hidden>
+        <div className="marquee flex w-max whitespace-nowrap text-[12px] font-bold uppercase tracking-[0.16em]">
           <span className="pr-0">{ticker.repeat(3)}</span>
           <span>{ticker.repeat(3)}</span>
         </div>

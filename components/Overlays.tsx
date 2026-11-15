@@ -9,24 +9,28 @@ export default function Overlays() {
   const { toast, count, cartOpen, sheet, setCartOpen } = useCart();
   return (
     <>
+      {/* annonce « ajouté au panier » aux lecteurs d'écran (zone toujours présente) */}
+      <div role="status" aria-live="polite" className="sr-only">
+        {toast ?? ""}
+      </div>
       <AnimatePresence>
         {toast && !cartOpen && (
           <motion.div
-            role="status"
+            aria-hidden
             initial={{ y: -20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: -20, opacity: 0 }}
             transition={{ duration: 0.6, ease: easing.outExpo }}
             className="pointer-events-none fixed inset-x-0 top-32 z-[80] flex justify-center px-6"
           >
-            <span className="rounded-full bg-ink px-5 py-3 text-[12px] font-medium text-bone shadow-[0_20px_40px_-20px_rgba(0,0,0,.6)]">{toast}</span>
+            <span className="bg-ink px-5 py-3 text-[12px] font-bold text-bone shadow-[4px_4px_0_#FF5B14]">{toast}</span>
           </motion.div>
         )}
       </AnimatePresence>
       <AnimatePresence>
         {count > 0 && !cartOpen && !sheet && (
           <motion.div initial={{ y: 90 }} animate={{ y: 0 }} exit={{ y: 90 }} transition={{ duration: 0.6, ease: easing.outExpo }} className="fixed inset-x-0 bottom-0 z-40 p-3 md:hidden">
-            <button onClick={() => setCartOpen(true)} className="flex w-full items-center justify-between rounded-full bg-ink px-6 py-4 text-bone shadow-[0_20px_40px_-20px_rgba(0,0,0,.7)]">
+            <button onClick={() => setCartOpen(true)} className="flex w-full items-center justify-between bg-ink px-6 py-4 text-bone shadow-[4px_4px_0_#FF5B14,0_20px_40px_-20px_rgba(0,0,0,.7)]">
               <span className="text-[12px] font-semibold uppercase tracking-[0.16em]">Panier · {count} article{count > 1 ? "s" : ""}</span>
               <span className="text-[12px] font-semibold uppercase tracking-[0.16em] text-accent-light">Voir →</span>
             </button>
