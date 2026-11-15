@@ -1,0 +1,26 @@
+# Protections de Billion Shack, appliquées par Netlify à toutes les pages et à tous les fichiers du site.
+# Ce fichier est copié dans le dossier « out » au moment du build : il marche aussi bien
+# en glisser-déposer sur Netlify qu'avec GitHub. Ne pas le renommer, ne pas le supprimer.
+
+/*
+  # Le site ne peut pas être affiché dans une fenêtre d'un autre site (anti-piège au clic).
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  # Toujours en HTTPS (connexion chiffrée).
+  Strict-Transport-Security: max-age=63072000; includeSubDomains
+  # Le site n'a pas besoin de la caméra, du micro, du paiement, de l'USB ni de la position.
+  Permissions-Policy: camera=(), microphone=(), payment=(), usb=(), geolocation=()
+  # Isole la fenêtre du site des sites ouverts depuis lui (WhatsApp, Snapchat, TikTok, Google Maps).
+  Cross-Origin-Opener-Policy: same-origin
+  # CSP : seul le site lui-même peut fournir scripts, styles, polices, images, vidéo et 3D.
+  # 'unsafe-inline' (scripts) = petits scripts écrits dans la page par Next.js (site statique).
+  # data: = textures de grain dessinées en SVG ; blob: = images préparées en mémoire.
+  # Pas de 'unsafe-eval' : aucun code ne peut être fabriqué à la volée (testé avec la 3D).
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self' data:; media-src 'self'; connect-src 'self'; object-src 'none'; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; upgrade-insecure-requests
+
+# Fichiers du site dont le nom change à chaque nouvelle version : gardés 1 an dans le navigateur
+# (les visites suivantes sont plus rapides). Les photos, motifs et le film ne sont PAS concernés :
+# tu peux les remplacer en gardant le même nom, les visiteurs verront tout de suite la nouvelle version.
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable

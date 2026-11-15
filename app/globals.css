@@ -1,0 +1,47 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body { @apply bg-bone text-ink font-body antialiased; }
+  ::selection { background: #E3297D; color: #F6F5F8; }
+  :focus-visible { outline: 2px solid #E3297D; outline-offset: 3px; }
+  section[id] { scroll-margin-top: 7rem; }
+}
+
+@layer utilities {
+  /* Nom géant : Archivo très large et très gras (façon Kenless) */
+  .giant { font-family: "Archivo Variable", "Arial Black", sans-serif; font-weight: 900; font-stretch: 125%; text-transform: uppercase; letter-spacing: -0.045em; line-height: .8; }
+  /* Titres condensés (façon Synth Era) */
+  .cond { font-family: "Archivo Variable", "Arial Narrow", sans-serif; font-weight: 800; font-stretch: 72%; text-transform: uppercase; letter-spacing: -0.01em; line-height: .9; }
+  .grot { font-family: "Archivo Variable", sans-serif; font-weight: 700; letter-spacing: -0.02em; }
+  /* Écriture fine en italique (phrases du héros, mots mis en avant) */
+  .serif { font-family: "Instrument Serif", Georgia, serif; font-style: italic; font-weight: 400; letter-spacing: -0.015em; line-height: .98; }
+  /* Gros titre droit (façon « MOST WANTED ») */
+  .heavy { font-family: "Archivo Variable", "Arial Black", sans-serif; font-weight: 900; font-stretch: 100%; text-transform: uppercase; letter-spacing: -0.04em; line-height: .86; }
+  .label { @apply text-[11px] font-semibold uppercase tracking-[0.2em]; }
+  .tabular { font-variant-numeric: tabular-nums; }
+  /* Fil aux couleurs du sac du logo (cyan → bleu → violet → magenta → orange) */
+  .brand-line { background: linear-gradient(90deg, #17D6CF, #558AFC 26%, #AB3FB6 50%, #E3297D 72%, #FFA516); }
+  /* Grain très léger (profondeur sans ombres) */
+  .noise::before {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: .045; mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .noise-dark::before { opacity: .07; mix-blend-mode: overlay; }
+  /* Texture marbrée façon planche de collection */
+  .mottle::after {
+    content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0; opacity: .5; mix-blend-mode: soft-light;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='m'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.008' numOctaves='4' seed='7'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23m)'/%3E%3C/svg%3E");
+    background-size: cover;
+  }
+  /* Grain de pellicule animé (section « état d'esprit ») */
+  .film-grain { background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E"); background-size: 240px 240px; mix-blend-mode: overlay; opacity: .32; animation: grain .9s steps(6) infinite; }
+  @keyframes grain { 0% { background-position: 0 0; } 20% { background-position: -60px 40px; } 40% { background-position: 50px -70px; } 60% { background-position: -90px -20px; } 80% { background-position: 30px 90px; } 100% { background-position: 0 0; } }
+  .marquee { animation: marquee 38s linear infinite; }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) { .film-grain, .marquee { animation: none; } }
+  .scrollbar-none { scrollbar-width: none; }
+  .scrollbar-none::-webkit-scrollbar { display: none; }
+}

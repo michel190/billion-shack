@@ -1,0 +1,12 @@
+# Réglages Netlify, utilisés seulement si le site est relié à GitHub
+# (en glisser-déposer, Netlify publie directement le dossier déposé).
+[build]
+  command = "npm run build"
+  publish = "out"
+
+# Next.js 16 demande Node.js 20.9 ou plus récent : on fixe la version utilisée par Netlify.
+[build.environment]
+  NODE_VERSION = "22"
+
+# Les protections (en-têtes de sécurité, CSP) sont dans public/_headers :
+# ce fichier finit dans le site publié et marche quelle que soit la façon de le mettre en ligne.
